@@ -10,18 +10,20 @@ public class Car {
 	private int direction;
 	private PApplet app;
 	
-	public Car(float posX, float posY, float width, float height, int direction) {
+	public Car(float posX, float posY, float width, float height, int direction, PApplet app) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
 		this.direction = direction;
+		this.app = app;
 	}
 	
 	public void paint() {
 		app.fill(255, 0, 0);
 		app.rect(this.posX, this.posY, this.width, this.height);
 	}
+
 
 	public float getPosX() {
 		return posX;

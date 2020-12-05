@@ -18,6 +18,10 @@ public class ControllerMain {
 	}
 	
 	public void paint() {
-		this.logic.paintScenario();
+		this.logic.handleScreen();
+	}
+	
+	public void keyEvents() {
+		this.logic.handleKeyPressed();
 	}
 }

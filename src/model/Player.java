@@ -21,6 +21,24 @@ public class Player {
 		app.fill(255, 0, 255);
 		app.ellipse(this.posX, this.posY, this.radius * 2, this.radius * 2);
 	}
+	
+	public void move(int top, int bottom, int left, int right) {
+		if(app.keyCode == app.UP && this.posY > top) {
+			this.posY -= 70;
+		}
+		
+		if(app.keyCode == app.DOWN && this.posY < bottom) {
+			this.posY += 70;
+		}
+		
+		if(app.keyCode == app.LEFT && this.posX > left) {
+			this.posX -= 70;
+		}
+		
+		if(app.keyCode == app.RIGHT && this.posX < right) {
+			this.posX += 70;
+		}
+	}
 
 	public float getPosX() {
 		return posX;
