@@ -22,7 +22,7 @@ public class Main extends PApplet{
 	}
 	
 	public void draw() {
-		background(255, 128, 0);
+		background(255);
 		controllerMain.paint();
 	}
 	
