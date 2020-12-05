@@ -7,8 +7,10 @@ import processing.core.PApplet;
 public class Logic implements Runnable {
 	private Player player;
 	private int screen;
+	private Timer timer;
 	private boolean isPlaying;
 	private int roads;
+	private String finalText;
 	private int[] rowMultiplier = { -1, 1 };
 	private int[] rowMultiplierAlt = { 0, 1, 2 };
 	private String[] data;
@@ -18,7 +20,9 @@ public class Logic implements Runnable {
 	public Logic(PApplet app) {
 		this.screen = 0;
 		this.isPlaying = true;
+		this.timer = new Timer(0, true);
 		this.roads = 6;
+		this.finalText = "";
 		this.data = app.loadStrings("../../data/data.txt");
 		this.carList = new ArrayList<Car>();
 		this.app = app;
@@ -102,6 +106,7 @@ public class Logic implements Runnable {
 		case 0:
 			paintScenario();
 			paintCharacters();
+			paintTime();
 			collision();
 			break;
 
@@ -127,6 +132,13 @@ public class Logic implements Runnable {
 		for (int i = 0; i < this.carList.size(); i++) {
 			this.carList.get(i).paint();
 		}
+	}
+	
+	public void paintTime() {
+		app.textAlign(app.RIGHT, app.TOP);
+		app.textSize(35);
+		app.fill(255);
+		app.text("Tiempo: " + this.timer.getCount(), 780, 0);
 	}
 
 	public void moveCars() {
