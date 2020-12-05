@@ -52,31 +52,39 @@ public class Logic implements Runnable {
 		for (int i = 0; i < data.length; i++) {
 			String[] lineArray = data[i].split(",");
 			String type = lineArray[0];
+			
 			int direction = Integer.parseInt(lineArray[1]);
-			float posX = Float.parseFloat(lineArray[2]);
-			float posY = Float.parseFloat(lineArray[3]);
+			
+			try {
+				float posX = Float.parseFloat(lineArray[2]);
+				float posY = Float.parseFloat(lineArray[3]);
+				if (type.contains("personaje")) {
+					player = new Player(posX, posY + 5, 20, direction, app);
+				}
 
-			if (type.contains("personaje")) {
-				player = new Player(posX, posY + 5, 20, direction, app);
-			}
+				if (type.contains("carro")) {
 
-			if (type.contains("carro")) {
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
 
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
-
-				carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+				}
+				
+			} catch (NumberFormatException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				System.out.println("Algunos datos números del txt no son válidos");
 			}
 		}
 	}
