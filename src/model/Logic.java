@@ -220,7 +220,7 @@ public class Logic implements Runnable {
 	public void paintGameInfoList() {
 		for (int i = 0; i < this.gameInfoList.size(); i++) {
 			app.strokeWeight(1);
-			app.fill(255, 128, 0);
+			app.fill(255, 0, 255);
 			app.rect(0, 0 + (50 * i), 800, 50);
 			app.fill(255);
 			app.textSize(20);
@@ -262,7 +262,7 @@ public class Logic implements Runnable {
 			float carW = car.getWidth();
 			float carH = car.getHeight();
 
-			if (playerX - playerRadius >= carX && playerX + playerRadius <= carX + carW
+			if (playerX + playerRadius >= carX && playerX - playerRadius <= carX + carW
 					&& playerY - playerRadius >= carY && playerY + playerRadius <= carY + carH) {
 				this.screen = 1;
 				this.isPlaying = false;
