@@ -20,18 +20,20 @@ public class Button {
 	}
 	
 	public void paint() {
-		app.fill(255);
+		if(app.mouseX >= this.posX && app.mouseX <= this.posX + this.width && app.mouseY >= this.posY && app.mouseY <= this.posY + this.height) {
+			app.fill(155);
+		} else {
+			app.fill(255);
+		}
+		app.strokeWeight(1);
+		app.stroke(0);
 		app.rect(this.posX, this.posY, this.width, this.height);
-		app.fill(30);
+		app.fill(0);
 		app.textAlign(app.CENTER, app.CENTER);
+		app.noStroke();
 		app.textSize(20);
 		app.text(this.description, this.posX + this.width /2, this.posY + this.height /2 - 2);
-		
-		if(app.mouseX >= this.posX && app.mouseX <= this.posX + this.width && app.mouseY >= this.posY && app.mouseY <= this.posY + this.height) {
-			app.cursor(app.HAND);
-		} else {
-			app.cursor(app.ARROW);
-		}
+		app.stroke(0);
 	}
 
 	public float getPosX() {
