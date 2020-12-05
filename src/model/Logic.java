@@ -70,27 +70,57 @@ public class Logic implements Runnable {
 			try {
 				float posX = Float.parseFloat(lineArray[2]);
 				float posY = Float.parseFloat(lineArray[3]);
+
 				if (type.contains("personaje")) {
 					player = new Player(posX, posY + 5, 20, direction, app);
 				}
 
 				if (type.contains("carro")) {
 
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					if (posY == 200 && direction > 0) {
+						carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 100, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 100, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 200, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 300, posY, 100, 50, direction, this.app));
+					}
 
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					if (posY == 200 && direction < 0) {
+						carList.add(new Car(posX, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 100, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 300, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 200, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 300, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 400, posY - 100, 100, 50, direction, this.app));
+					}
 
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					if (posY == 400 && direction > 0) {
+						carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 250, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 350, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 550, posY, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 100, posY, 100, 50, direction, this.app));
+					}
 
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					if (posY == 400 && direction < 0) {
+						carList.add(new Car(posX, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 250, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 450, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 100, posY - 100, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 100, posY - 100, 100, 50, direction, this.app));
+					}
 
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					if (direction < 0) {
+						carList.add(new Car(posX, 500, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 100, 500, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 250, 500, 100, 50, direction, this.app));
+					}
 
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
-
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
-
-					carList.add(new Car(posX, posY, 100, 50, direction, this.app));
+					if (direction > 0) {
+						carList.add(new Car(posX, 600, 100, 50, direction, this.app));
+						carList.add(new Car(posX + 150, 600, 100, 50, direction, this.app));
+						carList.add(new Car(posX - 200, 600, 100, 50, direction, this.app));
+					}
 				}
 
 			} catch (NumberFormatException e) {
@@ -114,13 +144,13 @@ public class Logic implements Runnable {
 
 			if (car.getPosY() == 200) {
 				if (car.direction < 0) {
-					car.setPosY(car.getPosY() + (100 * rowMultiplier[secondRowRandomY]));
+					// car.setPosY(car.getPosY() + (100 * rowMultiplier[secondRowRandomY]));
 				}
 			}
 
 			if (car.getPosY() == 400) {
 				if (car.direction < 0) {
-					car.setPosY(car.getPosY() + (100 * rowMultiplierAlt[fourthRowRandomY]));
+					// car.setPosY(car.getPosY() + (100 * rowMultiplierAlt[fourthRowRandomY]));
 				}
 			}
 		}
@@ -183,7 +213,7 @@ public class Logic implements Runnable {
 	public void paintTime() {
 		app.textAlign(app.RIGHT, app.TOP);
 		app.textSize(35);
-		app.fill(255);
+		app.fill(0);
 		app.text("Tiempo: " + this.timer.getCount(), 780, 0);
 	}
 
@@ -196,7 +226,7 @@ public class Logic implements Runnable {
 			app.textSize(20);
 			app.textAlign(app.LEFT, app.TOP);
 			app.text(i + 1 + ". Fecha: " + this.gameInfoList.get(i).getDate() + " / Tiempo: "
-					+ this.gameInfoList.get(i).getTime(), 10, 10 + (50 * i) );
+					+ this.gameInfoList.get(i).getTime(), 10, 10 + (50 * i));
 			app.noStroke();
 		}
 
@@ -284,7 +314,7 @@ public class Logic implements Runnable {
 					&& app.mouseY <= this.sortDateBtn.getPosY() + this.sortDateBtn.getHeight()) {
 				sortByDate();
 			}
-			
+
 			if (app.mouseX >= this.sortTimeBtn.getPosX()
 					&& app.mouseX <= this.sortTimeBtn.getPosX() + this.sortTimeBtn.getWidth()
 					&& app.mouseY >= this.sortTimeBtn.getPosY()
