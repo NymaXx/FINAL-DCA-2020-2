@@ -121,6 +121,7 @@ public class Logic implements Runnable {
 				finalText = e.getMessage();
 				e.printStackTrace();
 			}
+			winning();
 			break;
 
 		case 1:
@@ -163,6 +164,13 @@ public class Logic implements Runnable {
 		for (int i = 0; i < this.carList.size(); i++) {
 			this.carList.get(i).move();
 			this.carList.get(i).resetPosX();
+		}
+	}
+	
+	public void winning() {
+		if(this.player.getPosY() > 650) {
+			this.screen = 1;
+			this.finalText = "¡Ganaste! :D";
 		}
 	}
 
