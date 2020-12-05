@@ -2,19 +2,14 @@ package model;
 
 import processing.core.PApplet;
 
-public class Player {
-	private float posX;
-	private float posY;
+public class Player extends Character{
+	
 	private int radius;
-	private int direction;
-	private PApplet app;
 	
 	public Player(float posX, float posY, int radius, int direction, PApplet app) {
-		this.posX = posX;
-		this.posY = posY;
+		super(posX, posY, direction, app);
+		// TODO Auto-generated constructor stub
 		this.radius = radius;
-		this.direction = direction;
-		this.app = app;
 	}
 	
 	public void paint() {
@@ -24,36 +19,20 @@ public class Player {
 	
 	public void move(int top, int bottom, int left, int right) {
 		if(app.keyCode == app.UP && this.posY > top) {
-			this.posY -= 70;
+			this.posY -= 50;
 		}
 		
 		if(app.keyCode == app.DOWN && this.posY < bottom) {
-			this.posY += 70;
+			this.posY += 50;
 		}
 		
 		if(app.keyCode == app.LEFT && this.posX > left) {
-			this.posX -= 70;
+			this.posX -= 50;
 		}
 		
 		if(app.keyCode == app.RIGHT && this.posX < right) {
-			this.posX += 70;
+			this.posX += 50;
 		}
-	}
-
-	public float getPosX() {
-		return posX;
-	}
-
-	public void setPosX(float posX) {
-		this.posX = posX;
-	}
-
-	public float getPosY() {
-		return posY;
-	}
-
-	public void setPosY(float posY) {
-		this.posY = posY;
 	}
 
 	public int getRadius() {
@@ -62,14 +41,6 @@ public class Player {
 
 	public void setRadius(int radius) {
 		this.radius = radius;
-	}
-
-	public int getDirection() {
-		return direction;
-	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
 	}
 	
 }

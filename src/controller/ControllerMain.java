@@ -15,6 +15,7 @@ public class ControllerMain {
 	
 	public void loadInformation() {
 		this.logic.loadData();
+		this.logic.setCars();
 	}
 	
 	public void paint() {

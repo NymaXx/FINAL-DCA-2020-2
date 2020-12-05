@@ -2,43 +2,35 @@ package model;
 
 import processing.core.PApplet;
 
-public class Car {
-	private float posX;
-	private float posY;
+public class Car extends Character {
+	
 	private float width;
 	private float height;
-	private int direction;
-	private PApplet app;
 	
 	public Car(float posX, float posY, float width, float height, int direction, PApplet app) {
-		this.posX = posX;
-		this.posY = posY;
+		super(posX, posY, direction, app);
+		// TODO Auto-generated constructor stub
 		this.width = width;
 		this.height = height;
-		this.direction = direction;
-		this.app = app;
 	}
 	
 	public void paint() {
 		app.fill(255, 0, 0);
 		app.rect(this.posX, this.posY, this.width, this.height);
 	}
-
-
-	public float getPosX() {
-		return posX;
+	
+	public void move() {
+		this.posX += this.direction;
 	}
-
-	public void setPosX(float posX) {
-		this.posX = posX;
-	}
-
-	public float getPosY() {
-		return posY;
-	}
-
-	public void setPosY(float posY) {
-		this.posY = posY;
+	
+	public void resetPosX() {
+		if(this.posX < 0 - this.width - 1) {
+			this.posX = 800 + this.width;
+		}
+		
+		if(this.posX > 800 + this.width + 1) {
+			this.posX = 0 - this.width;
+		}
 	}
 
 	public float getWidth() {
@@ -55,14 +47,6 @@ public class Car {
 
 	public void setHeight(float height) {
 		this.height = height;
-	}
-
-	public int getDirection() {
-		return direction;
-	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
 	}
 	
 }
