@@ -22,6 +22,10 @@ public class ControllerMain {
 		this.logic.handleScreen();
 	}
 	
+	public void mousePressedEvents() {
+		this.logic.handleMousePressed();
+	}
+	
 	public void keyEvents() {
 		this.logic.handleKeyPressed();
 	}

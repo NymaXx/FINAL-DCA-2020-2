@@ -8,6 +8,7 @@ public class Logic implements Runnable {
 	private Player player;
 	private int screen;
 	private Timer timer;
+	private Button resetBtn;
 	private boolean isPlaying;
 	private int roads;
 	private String finalText;
@@ -21,6 +22,7 @@ public class Logic implements Runnable {
 		this.screen = 0;
 		this.isPlaying = true;
 		this.timer = new Timer(0, true);
+		this.resetBtn = new Button(300, 450, 200, 50, "Reiniciar", app);
 		this.roads = 6;
 		this.finalText = "";
 		this.data = app.loadStrings("../../data/data.txt");
@@ -32,12 +34,15 @@ public class Logic implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while (this.isPlaying) {
+		while (true) {
 			try {
-				moveCars();
+				if (this.isPlaying) {
+					moveCars();
+				}
 				Thread.sleep(10);
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 
@@ -104,14 +109,27 @@ public class Logic implements Runnable {
 	public void handleScreen() {
 		switch (this.screen) {
 		case 0:
+			app.cursor(app.ARROW);
 			paintScenario();
 			paintCharacters();
 			paintTime();
-			collision();
+
+			try {
+				collision();
+			} catch (DeathException e) {
+				// TODO: handle exception
+				finalText = e.getMessage();
+				e.printStackTrace();
+			}
 			break;
 
 		case 1:
+			app.fill(255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.textSize(40);
 			app.background(0);
+			app.text(this.finalText, 400, 750 / 2);
+			this.resetBtn.paint();
 			break;
 
 		case 2:
@@ -133,7 +151,7 @@ public class Logic implements Runnable {
 			this.carList.get(i).paint();
 		}
 	}
-	
+
 	public void paintTime() {
 		app.textAlign(app.RIGHT, app.TOP);
 		app.textSize(35);
@@ -148,7 +166,7 @@ public class Logic implements Runnable {
 		}
 	}
 
-	public void collision() {
+	public void collision() throws DeathException {
 
 		float playerX = player.getPosX();
 		float playerY = player.getPosY();
@@ -165,8 +183,35 @@ public class Logic implements Runnable {
 			if (playerX - playerRadius >= carX && playerX + playerRadius <= carX + carW
 					&& playerY - playerRadius >= carY && playerY + playerRadius <= carY + carH) {
 				this.screen = 1;
-
+				this.isPlaying = false;
+				this.timer.setRunning(false);
+				throw new DeathException("Perdiste :(");
 			}
+		}
+	}
+
+	public void handleMousePressed() {
+		switch (this.screen) {
+		case 1:
+			if (app.mouseX >= this.resetBtn.getPosX()
+					&& app.mouseX <= this.resetBtn.getPosX() + this.resetBtn.getWidth()
+					&& app.mouseY >= this.resetBtn.getPosY()
+					&& app.mouseY <= this.resetBtn.getPosY() + this.resetBtn.getHeight()) {
+				this.screen = 0;
+				this.isPlaying = true;
+				this.timer = new Timer(0, true);
+				this.finalText = "";
+				this.data = app.loadStrings("../../data/data.txt");
+				this.carList = new ArrayList<Car>();
+				this.data = app.loadStrings("../../data/data.txt");
+				this.carList = new ArrayList<Car>();
+				loadData();
+				setCars();
+			}
+			break;
+
+		default:
+			break;
 		}
 	}
 

@@ -26,6 +26,10 @@ public class Main extends PApplet{
 		controllerMain.paint();
 	}
 	
+	public void mousePressed() {
+		controllerMain.mousePressedEvents();
+	}
+	
 	public void keyPressed() {
 		controllerMain.keyEvents();
 	}
